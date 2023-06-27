@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { toast } from 'react-hot-toast'
 
 export interface CounterState {
   value: number
@@ -19,9 +20,11 @@ export const counterSlice = createSlice({
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
       state.value += 1
+      toast.success('incremented')
     },
     decrement: (state) => {
       state.value -= 1
+      toast.error('Decremented')
     },
     incrementByAmount: (state, action: PayloadAction<number>) => {
       state.value += action.payload
