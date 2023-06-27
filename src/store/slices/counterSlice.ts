@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { Toast, toast } from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 
 export interface CounterState {
   value: number
