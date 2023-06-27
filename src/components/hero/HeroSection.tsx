@@ -12,7 +12,6 @@ const HeroSection = async () => {
     `*[_type=="heroImage"]{title,image}`
   );
   const imageData = findImage(data, "hero Image");
-  console.log(imageData);
 
   return (
     <header className="relative mx-8 flex gap-16 pt-8 lg:my-16 lg:ml-16 lg:mr-0 xl:ml-32 ">
