@@ -1,5 +1,5 @@
-import { Counter } from "@/components/counter";
+import Nav from "@/components/Nav/Nav";
 
 export default function Home() {
-  return <Counter />;
+  return <Nav />;
 }
