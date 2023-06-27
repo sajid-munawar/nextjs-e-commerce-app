@@ -1,9 +1,8 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
-import { store } from "@/store/store";
+import { Sora } from "next/font/google";
 import Providers from "@/store/Provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Sora({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
