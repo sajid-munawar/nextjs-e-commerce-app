@@ -65,10 +65,36 @@ export default async function ProductPage({
               </div>
             </div>
             {/* Bottom section */}
-            <div>
-              <div>Product Details</div>
+            <div className="relative bg-white/95 px-8 py-28 shadow-sm">
+              <div className="absolute -z-10 pt-24 text-6xl font-extrabold text-backgroundGrey lg:pt-4 lg:text-9xl ">
+                Overview
+              </div>
+              <div className="py-16 text-2xl font-bold">
+                Product Information
+              </div>
+              <div className="h-[2px] w-full bg-gray-400"></div>
+              {/* product details */}
+              <div className="grid grid-cols-3 grid-rows-1 py-8">
+                <div className="col-span-1 font-bold text-black/60">
+                  PRODUCT DETAILS
+                </div>
 
-              <div>{data[0].details}</div>
+                <div className=" col-span-2 tracking-widest text-black/90">
+                  {data[0].details}
+                </div>
+              </div>
+              {/* product Care */}
+              <div className="grid grid-cols-3 grid-rows-1">
+                <div className="col-span-1 font-bold text-black/60">
+                  PRODUCT CARE
+                </div>
+
+                <ul className="col-span-2 list-disc font-semibold">
+                  {data[0].care.map((careItem) => (
+                    <li className="my-2">{careItem}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </>
