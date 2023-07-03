@@ -9,9 +9,9 @@ export type IProductsDetail = {
   title: string;
   price: string;
   image: Iimage;
-  clothType: { clothTypeName: string };
-  product_details: string;
-  productCare: string[];
+  category: string;
+  details: string;
+  care: string[];
 };
 
 export type CartItem = {
