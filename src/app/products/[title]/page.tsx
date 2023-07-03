@@ -92,7 +92,9 @@ export default async function ProductPage({
 
                 <ul className="col-span-2 list-disc font-semibold">
                   {data[0].care.map((careItem) => (
-                    <li className="my-2">{careItem}</li>
+                    <li className="my-2" key={careItem}>
+                      {careItem}
+                    </li>
                   ))}
                 </ul>
               </div>
