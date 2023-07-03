@@ -1,16 +1,9 @@
-// import { IProductsDetail } from "@/app/interface/interface";
 import { IProductsDetail } from "@/interface/interface";
-// import { getProductData1 } from "@/app/interface/fetchFunction";
 import { getProductData } from "@/interface/fetchFunction";
-// import { urlForImage } from "@/sanity/lib/image";
 import { urlForImage } from "../../../../sanity/lib/image";
 import Image from "next/image";
 // import Quantity_Size_AddCart from "./Quantity_Size_AddCart";
 
-// export const getProductData = async (graqQury: string) => {
-//   const res = await client.fetch(graqQury);
-//   return res;
-// };
 export default async function ProductPage({
   params,
 }: {
@@ -18,7 +11,7 @@ export default async function ProductPage({
 }) {
   const URL = `*[_type=="products" && title== "${params.title
     .split("%20")
-    .join(" ")}"]{title,image,price}`;
+    .join(" ")}"]{title,image,price,category,details,care}`;
   const data: IProductsDetail[] = await getProductData(URL);
 
   return (
@@ -31,34 +24,20 @@ export default async function ProductPage({
               <div className="flex gap-8">
                 {/* Other Images */}
                 <div className="flex flex-col gap-4">
-                  <div className="relative h-[50px] w-[50px] md:h-[100px] md:w-[100px]">
-                    <Image
-                      src={urlForImage(data[0].image).url()}
-                      alt={data[0].title}
-                      fill={true}
-                    />
-                  </div>
-                  <div className="relative h-[50px] w-[50px] md:h-[100px] md:w-[100px]">
-                    <Image
-                      src={urlForImage(data[0].image).url()}
-                      alt={data[0].title}
-                      fill={true}
-                    />
-                  </div>
-                  <div className="relative h-[50px] w-[50px] md:h-[100px] md:w-[100px]">
-                    <Image
-                      src={urlForImage(data[0].image).url()}
-                      alt={data[0].title}
-                      fill={true}
-                    />
-                  </div>
-                  <div className="relative h-[50px] w-[50px] md:h-[100px] md:w-[100px]">
-                    <Image
-                      src={urlForImage(data[0].image).url()}
-                      alt={data[0].title}
-                      fill={true}
-                    />
-                  </div>
+                  {Array(4)
+                    .fill(0)
+                    .map((_, index) => (
+                      <div
+                        key={index}
+                        className="relative h-[50px] w-[50px] md:h-[100px] md:w-[100px]"
+                      >
+                        <Image
+                          src={urlForImage(data[0].image).url()}
+                          alt={data[0].title}
+                          fill={true}
+                        />
+                      </div>
+                    ))}
                 </div>
                 {/* Product Image */}
                 <div className="relative h-[270px] w-[250px] md:h-[460px] md:w-[460px] ">
@@ -78,12 +57,18 @@ export default async function ProductPage({
                     {data[0].title}
                   </div>
                   <div className="pt-1 text-xl font-semibold opacity-30">
-                    Product Category
+                    {data[0].category}
                   </div>
                 </div>
                 {/* <Quantity_Size_AddCart params={data[0]} /> */}
                 <div></div>
               </div>
+            </div>
+            {/* Bottom section */}
+            <div>
+              <div>Product Details</div>
+
+              <div>{data[0].details}</div>
             </div>
           </div>
         </>
