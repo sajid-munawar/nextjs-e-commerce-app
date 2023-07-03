@@ -1,6 +1,8 @@
 import "./globals.css";
 import { Sora } from "next/font/google";
 import Providers from "@/store/Provider";
+import Nav from "@/components/nav/Nav";
+import Footer from "@/components/footer/footer";
 
 const inter = Sora({ subsets: ["latin"] });
 
@@ -17,7 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Nav />
+          {children}
+          <Footer />
+          </Providers>
       </body>
     </html>
   );
