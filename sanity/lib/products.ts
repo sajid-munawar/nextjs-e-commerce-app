@@ -20,8 +20,9 @@ export const products = {
       },
       {
         name: "gender",
-        title: "gender",
-        type: "string",
+        title: "Gender",
+        type: 'array',
+        of: [{type: 'string'}]
       },
       {
         name: "details",
@@ -29,7 +30,7 @@ export const products = {
         type: "string",
       },
       {
-        title: 'care',
+        title: 'Care',
         name: 'care',
         type: 'array',
         of: [{type: 'string'}]
