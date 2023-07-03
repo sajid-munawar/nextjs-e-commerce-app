@@ -3,6 +3,7 @@ import { getProductData } from "@/interface/fetchFunction";
 import { urlForImage } from "../../../../sanity/lib/image";
 import Image from "next/image";
 // import Quantity_Size_AddCart from "./Quantity_Size_AddCart";
+import Quantity_Size_AddCart from "@/components/productDetails/Quantity_Size_AddCart";
 
 export default async function ProductPage({
   params,
@@ -60,7 +61,7 @@ export default async function ProductPage({
                     {data[0].category}
                   </div>
                 </div>
-                {/* <Quantity_Size_AddCart params={data[0]} /> */}
+                <Quantity_Size_AddCart params={data[0]} />
                 <div></div>
               </div>
             </div>
