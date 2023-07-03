@@ -3,19 +3,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 // import { Pagination } from "swiper";
-import {Pagination} from "swiper/modules"
+import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { urlForImage } from "../../../sanity/lib/image";
 import { IProductsDetail } from "@/interface/interface";
 import { getProductData } from "@/interface/fetchFunction";
+import { useEffect, useState } from "react";
 
-
-
-export default async function Products() {
-  const imageData: IProductsDetail[] = await getProductData(
-    `*[_type == "products"]{image,title,price}`
-  );
+export default async function Products({
+  imageData,
+}: {
+  imageData: IProductsDetail[];
+}) {
   const responsive = {
     // when window width is >= 640px
     640: {
@@ -31,7 +31,6 @@ export default async function Products() {
       slidesPerView: 3,
     },
   };
- 
 
   return (
     <div className="px-8 py-16 lg:px-16 xl:px-32">
@@ -56,7 +55,7 @@ export default async function Products() {
         className="mySwiper"
         breakpoints={responsive}
       >
-        {imageData.map((items) => (
+        {imageData?.map((items: any) => (
           <SwiperSlide className=" text-center lg:pl-[18px]" key={items.title}>
             <div className="lg:2-[400px] inline-block  h-[320px] w-[300px] cursor-pointer pt-8 duration-500  ease-in-out hover:scale-110 lg:w-[380px] lg:pb-14">
               <Link
@@ -83,4 +82,3 @@ export default async function Products() {
     </div>
   );
 }
-
