@@ -5,6 +5,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 // import { RootState } from "@/app/store/store";
+import type { RootState } from "@/store/store";
+import { decrement, increment } from "@/store/slices/counterSlice";
+
 // import { counterActions } from "@/app/store/slice/CartSlice";
 
 export default function Quantity_Size_AddCart({
@@ -12,7 +15,8 @@ export default function Quantity_Size_AddCart({
 }: {
   params: IProductsDetail;
 }) {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const count = useSelector((state: RootState) => state.counter.value);
 
   // const user_size = useSelector((state: RootState) => state.CartSlice.size);
   // const value = useSelector((state: RootState) => state.CartSlice.value);
@@ -148,14 +152,16 @@ export default function Quantity_Size_AddCart({
           <div className="flex items-center gap-1">
             <button
               //  onClick={smallDec}
+              onClick={() => dispatch(decrement())}
               className="mr-2 cursor-pointer"
             >
               -
             </button>
             {/* <span>{specificItem?.quantity}</span> */}
-            <span>0{/* {value} */}</span>
+            <span>{count}</span>
             <button
               // onClick={smallInc}
+              onClick={() => dispatch(increment())}
               className="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-textBlack"
             >
               +
