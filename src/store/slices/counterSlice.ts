@@ -7,7 +7,7 @@ export interface CounterState {
 }
 
 const initialState: CounterState = {
-  value: 0,
+  value: 1,
 }
 
 export const counterSlice = createSlice({
@@ -20,11 +20,13 @@ export const counterSlice = createSlice({
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
       state.value += 1
-      toast.success('incremented')
+      // toast.success('incremented')
     },
     decrement: (state) => {
-      state.value -= 1
-      toast.error('Decremented')
+      if(state.value>1){
+        state.value -= 1
+      }
+      // toast.error('Decremented')
     },
     incrementByAmount: (state, action: PayloadAction<number>) => {
       state.value += action.payload
