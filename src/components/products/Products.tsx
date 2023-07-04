@@ -8,20 +8,27 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { urlForImage } from "../../../sanity/lib/image";
 import { IProductsDetail } from "@/interface/interface";
-import { getProductData } from "@/interface/fetchFunction";
-import { useState, useEffect } from "react";
+// import { getProductData } from "@/interface/fetchFunction";
+// import { useState, useEffect } from "react";
 
-export default async function Products() {
-  const [data, setData] = useState<any>(null);
-  const getData = async () => {
-    const imageData: IProductsDetail[] = await getProductData(
-      `*[_type == "products"]{image,title,price}`
-    );
-    setData(imageData);
-  };
-  useEffect(() => {
-    getData();
-  }, []);
+export default async function Products({
+  productsData,
+}: {
+  productsData: IProductsDetail[];
+}) {
+  // const [data, setData] = useState<any>(null);
+  // const getData = async () => {
+  //   const imageData: IProductsDetail[] = await getProductData(
+  //     `*[_type == "products"]{image,title,price}`
+  //   );
+  //   // console.log("imageData :>> ", imageData);
+  //   // await setData(imageData);
+  //   return imageData;
+  // };
+  // useEffect(() => {
+  //   const imageData = getData();
+  //   setData(imageData);
+  // }, []);
   const responsive = {
     // when window width is >= 640px
     640: {
@@ -61,8 +68,8 @@ export default async function Products() {
         className="mySwiper"
         breakpoints={responsive}
       >
-        {data &&
-          data.map((items: any) => (
+        {productsData &&
+          productsData.map((items: any) => (
             <SwiperSlide
               className=" text-center lg:pl-[18px]"
               key={items.title}
