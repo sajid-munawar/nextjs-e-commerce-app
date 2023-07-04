@@ -8,14 +8,27 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { urlForImage } from "../../../sanity/lib/image";
 import { IProductsDetail } from "@/interface/interface";
-import { getProductData } from "@/interface/fetchFunction";
-import { useEffect, useState } from "react";
+// import { getProductData } from "@/interface/fetchFunction";
+// import { useState, useEffect } from "react";
 
 export default async function Products({
-  imageData,
+  productsData,
 }: {
-  imageData: IProductsDetail[];
+  productsData: IProductsDetail[];
 }) {
+  // const [data, setData] = useState<any>(null);
+  // const getData = async () => {
+  //   const imageData: IProductsDetail[] = await getProductData(
+  //     `*[_type == "products"]{image,title,price}`
+  //   );
+  //   // console.log("imageData :>> ", imageData);
+  //   // await setData(imageData);
+  //   return imageData;
+  // };
+  // useEffect(() => {
+  //   const imageData = getData();
+  //   setData(imageData);
+  // }, []);
   const responsive = {
     // when window width is >= 640px
     640: {
@@ -55,29 +68,33 @@ export default async function Products({
         className="mySwiper"
         breakpoints={responsive}
       >
-        {imageData?.map((items: any) => (
-          <SwiperSlide className=" text-center lg:pl-[18px]" key={items.title}>
-            <div className="lg:2-[400px] inline-block  h-[320px] w-[300px] cursor-pointer pt-8 duration-500  ease-in-out hover:scale-110 lg:w-[380px] lg:pb-14">
-              <Link
-                href="#"
-                onClick={(e) => e.preventDefault()}
-                id="myLink"
-                className="drag-none"
-              >
-                <Image
-                  src={urlForImage(items.image).url()}
-                  alt={items.title}
-                  width={380}
-                  height={400}
-                />
-                <div className="mt-2 text-center text-lg font-semibold tracking-wide text-textBlack lg:text-left">
-                  <div>{items.title}</div>
-                  <div className="">{items.price}</div>
-                </div>
-              </Link>
-            </div>
-          </SwiperSlide>
-        ))}
+        {productsData &&
+          productsData.map((items: any) => (
+            <SwiperSlide
+              className=" text-center lg:pl-[18px]"
+              key={items.title}
+            >
+              <div className="lg:2-[400px] inline-block  h-[320px] w-[300px] cursor-pointer pt-8 duration-500  ease-in-out hover:scale-110 lg:w-[380px] lg:pb-14">
+                <Link
+                  href="#"
+                  onClick={(e) => e.preventDefault()}
+                  id="myLink"
+                  className="drag-none"
+                >
+                  <Image
+                    src={urlForImage(items.image).url()}
+                    alt={items.title}
+                    width={380}
+                    height={400}
+                  />
+                  <div className="mt-2 text-center text-lg font-semibold tracking-wide text-textBlack lg:text-left">
+                    <div>{items.title}</div>
+                    <div className="">{items.price}</div>
+                  </div>
+                </Link>
+              </div>
+            </SwiperSlide>
+          ))}
       </Swiper>
     </div>
   );
