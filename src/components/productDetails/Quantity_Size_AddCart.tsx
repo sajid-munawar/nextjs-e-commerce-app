@@ -84,6 +84,17 @@ export default function Quantity_Size_AddCart({
   //     dispatch(counterActions.smallDecrement(1));
   //   }
   // };
+  const handleAddToCart = async () => {
+    const res = await fetch("/api/cart", {
+      method: "POST",
+      body: JSON.stringify({
+        product_id: "Dummy id",
+        quantity: 1,
+      }),
+    });
+    const result = await res.json();
+    console.log(result);
+  };
 
   return (
     <>
@@ -171,7 +182,7 @@ export default function Quantity_Size_AddCart({
         <div className="flex items-center gap-4">
           <div className="flex w-4/5 min-w-[180px] items-center justify-center border-l-2 border-t-2 border-textGrey bg-blackButton p-4 text-base font-semibold text-white lg:w-2/6">
             <button
-              // onClick={handleAddToCart}
+              onClick={handleAddToCart}
               // onClick={addCartIncrement}
               className="flex flex-row items-center justify-center gap-3"
             >
