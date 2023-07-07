@@ -7,89 +7,24 @@ import { useDispatch, useSelector } from "react-redux";
 // import { RootState } from "@/app/store/store";
 import type { RootState } from "@/store/store";
 import { decrement, increment } from "@/store/slices/counterSlice";
+import { BsCart } from "react-icons/bs";
 
 // import { counterActions } from "@/app/store/slice/CartSlice";
 
 export default function Quantity_Size_AddCart({
-  params,
+  product,
 }: {
-  params: IProductsDetail;
+  product: IProductsDetail;
 }) {
   const dispatch = useDispatch();
-  const count = useSelector((state: RootState) => state.counter.value);
+  const itemCount = useSelector((state: RootState) => state.itemCount.value);
 
-  // const user_size = useSelector((state: RootState) => state.CartSlice.size);
-  // const value = useSelector((state: RootState) => state.CartSlice.value);
-  // const allitems = useSelector((state: RootState) => state.CartSlice.items);
-
-  // post item on DB
-  // const postCartItemtoDB = async () => {
-  //   toast.loading(`Wait... Adding to cart`);
-  //   const res = await fetch("/api/cart", {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       product_id: params.title,
-  //       size: user_size,
-  //       quantity: value,
-  //       price: params.price,
-  //     }),
-  //   });
-  // const result = await res.json();
-  // console.log(result);
-  //   toast.dismiss();
-  // };
-
-  // // Update selected size state
-  // const handleSize = (curSize: string) => {
-  //   dispatch(counterActions.updateSize(curSize));
-  // };
-  // // Selected Size CSS
-  // const getButtonClassName = (buttonSize: string) => {
-  //   return `min-w-[23px] cursor-pointer rounded-full p-[1px] text-center text-base font-bold text-textGrey hover:shadow-lg hover:shadow-gray-400 ${
-  //     user_size === buttonSize ? "shadow-xl shadow-gray-500" : ""
-  //   }`;
-  // };
-
-  // // Add items to cart
-  // const addCartIncrement = async () => {
-  //   if (value > 0 && user_size !== "") {
-  //     dispatch(
-  //       counterActions.addToCart({
-  //         product: {
-  //           id: params.title,
-  //           price: parseInt(params.price, 10),
-  //           size: user_size,
-  //         },
-  //         quantity: value,
-  //       })
-  //     );
-  //     await postCartItemtoDB();
-  //     toast(`${params.title} added to cart`);
-  //   } else {
-  //     if (user_size === "") {
-  //       toast.error(`Please select size`);
-  //     } else {
-  //       toast.error(`Please Select quantity`);
-  //     }
-  //   }
-  // };
-
-  // const smallInc = () => {
-  //   if (value < 5) {
-  //     dispatch(counterActions.smallIncrement(1));
-  //   }
-  // };
-  // const smallDec = () => {
-  //   if (value > 0) {
-  //     dispatch(counterActions.smallDecrement(1));
-  //   }
-  // };
   const handleAddToCart = async () => {
     const res = await fetch("/api/cart", {
       method: "POST",
       body: JSON.stringify({
-        product_id: "Dummy id",
-        quantity: 1,
+        product_id: product._id,
+        quantity: itemCount,
       }),
     });
     const result = await res.json();
@@ -169,7 +104,7 @@ export default function Quantity_Size_AddCart({
               -
             </button>
             {/* <span>{specificItem?.quantity}</span> */}
-            <span>{count}</span>
+            <span>{itemCount}</span>
             <button
               // onClick={smallInc}
               onClick={() => dispatch(increment())}
@@ -186,37 +121,80 @@ export default function Quantity_Size_AddCart({
               // onClick={addCartIncrement}
               className="flex flex-row items-center justify-center gap-3"
             >
-              <svg
-                className="pr-1"
-                stroke="currentColor"
-                fill="none"
-                strokeWidth="0"
-                viewBox="0 0 24 24"
-                height="26"
-                width="26"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M5.79166 2H1V4H4.2184L6.9872 16.6776H7V17H20V16.7519L22.1932 7.09095L22.5308 6H6.6552L6.08485 3.38852L5.79166 2ZM19.9869 8H7.092L8.62081 15H18.3978L19.9869 8Z"
-                  fill="currentColor"
-                ></path>
-                <path
-                  d="M10 22C11.1046 22 12 21.1046 12 20C12 18.8954 11.1046 18 10 18C8.89543 18 8 18.8954 8 20C8 21.1046 8.89543 22 10 22Z"
-                  fill="currentColor"
-                ></path>
-                <path
-                  d="M19 20C19 21.1046 18.1046 22 17 22C15.8954 22 15 21.1046 15 20C15 18.8954 15.8954 18 17 18C18.1046 18 19 18.8954 19 20Z"
-                  fill="currentColor"
-                ></path>
-              </svg>
+              <BsCart size={20} />
               <div className="text-center">Add to Cart</div>
             </button>
           </div>
-          <div className="min-w-[120px] text-2xl font-bold text-textBlack">{`$ ${params.price}.00`}</div>
+          <div className="min-w-[120px] text-2xl font-bold text-textBlack">{`$ ${product.price}.00`}</div>
         </div>
       </div>
     </>
   );
 }
+
+// const user_size = useSelector((state: RootState) => state.CartSlice.size);
+// const value = useSelector((state: RootState) => state.CartSlice.value);
+// const allitems = useSelector((state: RootState) => state.CartSlice.items);
+
+// post item on DB
+// const postCartItemtoDB = async () => {
+//   toast.loading(`Wait... Adding to cart`);
+//   const res = await fetch("/api/cart", {
+//     method: "POST",
+//     body: JSON.stringify({
+//       product_id: product.title,
+//       size: user_size,
+//       quantity: value,
+//       price: product.price,
+//     }),
+//   });
+// const result = await res.json();
+// console.log(result);
+//   toast.dismiss();
+// };
+
+// // Update selected size state
+// const handleSize = (curSize: string) => {
+//   dispatch(counterActions.updateSize(curSize));
+// };
+// // Selected Size CSS
+// const getButtonClassName = (buttonSize: string) => {
+//   return `min-w-[23px] cursor-pointer rounded-full p-[1px] text-center text-base font-bold text-textGrey hover:shadow-lg hover:shadow-gray-400 ${
+//     user_size === buttonSize ? "shadow-xl shadow-gray-500" : ""
+//   }`;
+// };
+
+// // Add items to cart
+// const addCartIncrement = async () => {
+//   if (value > 0 && user_size !== "") {
+//     dispatch(
+//       counterActions.addToCart({
+//         product: {
+//           id: product.title,
+//           price: parseInt(product.price, 10),
+//           size: user_size,
+//         },
+//         quantity: value,
+//       })
+//     );
+//     await postCartItemtoDB();
+//     toast(`${product.title} added to cart`);
+//   } else {
+//     if (user_size === "") {
+//       toast.error(`Please select size`);
+//     } else {
+//       toast.error(`Please Select quantity`);
+//     }
+//   }
+// };
+
+// const smallInc = () => {
+//   if (value < 5) {
+//     dispatch(counterActions.smallIncrement(1));
+//   }
+// };
+// const smallDec = () => {
+//   if (value > 0) {
+//     dispatch(counterActions.smallDecrement(1));
+//   }
+// };
