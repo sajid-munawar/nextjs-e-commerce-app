@@ -12,8 +12,8 @@ export default async function ProductPage({
 }) {
   const URL = `*[_type=="products" && title== "${params.title
     .split("%20")
-    .join(" ")}"]{title,image,price,category,details,care}`;
-  const data: IProductsDetail[] = await getProductData(URL);
+    .join(" ")}"]{title,image,price,category,details,care,_id}[0]`;
+  const data: IProductsDetail = await getProductData(URL);
 
   return (
     <>
@@ -33,8 +33,8 @@ export default async function ProductPage({
                         className="relative h-[50px] w-[50px] md:h-[100px] md:w-[100px]"
                       >
                         <Image
-                          src={urlForImage(data[0].image).url()}
-                          alt={data[0].title}
+                          src={urlForImage(data.image).url()}
+                          alt={data.title}
                           fill={true}
                         />
                       </div>
@@ -43,8 +43,8 @@ export default async function ProductPage({
                 {/* Product Image */}
                 <div className="relative h-[270px] w-[250px] md:h-[460px] md:w-[460px] ">
                   <Image
-                    src={urlForImage(data[0].image).url()}
-                    alt={data[0].title}
+                    src={urlForImage(data.image).url()}
+                    alt={data.title}
                     fill={true}
                     className=""
                     quality={100}
@@ -55,13 +55,13 @@ export default async function ProductPage({
               <div className="flex flex-col gap-10">
                 <div>
                   <div className="text-2xl font-normal leading-8 tracking-wider text-textBlack lg:text-3xl">
-                    {data[0].title}
+                    {data.title}
                   </div>
                   <div className="pt-1 text-xl font-semibold opacity-30">
-                    {data[0].category}
+                    {data.category}
                   </div>
                 </div>
-                <Quantity_Size_AddCart params={data[0]} />
+                <Quantity_Size_AddCart product={data} />
                 <div></div>
               </div>
             </div>
@@ -81,7 +81,7 @@ export default async function ProductPage({
                 </div>
 
                 <div className=" col-span-2 tracking-widest text-black/90">
-                  {data[0].details}
+                  {data.details}
                 </div>
               </div>
               {/* product Care */}
@@ -91,7 +91,7 @@ export default async function ProductPage({
                 </div>
 
                 <ul className="col-span-2 list-disc font-semibold">
-                  {data[0].care.map((careItem) => (
+                  {data.care.map((careItem) => (
                     <li className="my-2" key={careItem}>
                       {careItem}
                     </li>
