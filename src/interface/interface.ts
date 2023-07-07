@@ -12,6 +12,7 @@ export type IProductsDetail = {
   category: string;
   details: string;
   care: string[];
+  _id: string;
 };
 
 export type CartItem = {
