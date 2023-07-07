@@ -1,17 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import { toast } from 'react-hot-toast'
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { toast } from "react-hot-toast";
 
 export interface CounterState {
-  value: number
+  value: number;
 }
 
 const initialState: CounterState = {
   value: 1,
-}
+};
 
 export const counterSlice = createSlice({
-  name: 'counter',
+  name: "itemCount",
   initialState,
   reducers: {
     increment: (state) => {
@@ -19,22 +19,22 @@ export const counterSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      state.value += 1
+      state.value += 1;
       // toast.success('incremented')
     },
     decrement: (state) => {
-      if(state.value>1){
-        state.value -= 1
+      if (state.value > 1) {
+        state.value -= 1;
       }
       // toast.error('Decremented')
     },
     incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload
+      state.value += action.payload;
     },
   },
-})
+});
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 
-export default counterSlice.reducer
+export default counterSlice.reducer;
