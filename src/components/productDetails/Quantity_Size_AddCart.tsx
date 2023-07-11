@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { IProductsDetail } from "../../interface/interface";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,6 +18,17 @@ export default function Quantity_Size_AddCart({
 }) {
   const dispatch = useDispatch();
   const itemCount = useSelector((state: RootState) => state.itemCount.value);
+
+  const getProducts = async () => {
+    const res = await fetch("/api/cart", {
+      method: "GET",
+    });
+    // const result = await res.json();
+    console.log("products from get request", res);
+  };
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   const handleAddToCart = async () => {
     const res = await fetch("/api/cart", {
