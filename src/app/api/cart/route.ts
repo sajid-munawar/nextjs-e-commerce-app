@@ -41,11 +41,10 @@ export const GET = async (request: NextRequest) => {
 export const POST = async (request: NextRequest) => {
   const req = await request.json();
   const uid = uuid();
-  const setCookies = cookies();
-  const user_id = setCookies.get("user_id")?.value;
+  const user_id = cookies().get("user_id")?.value;
 
   if (!user_id) {
-    setCookies.set("user_id", uid);
+    cookies().set("user_id", uid);
   }
 
   try {
@@ -54,7 +53,7 @@ export const POST = async (request: NextRequest) => {
       .values({
         product_id: req.product_id,
         quantity: req.quantity,
-        user_id: setCookies.get("user_id")?.value as string,
+        user_id: cookies().get("user_id")?.value as string,
       })
       .returning();
     return NextResponse.json({ res });
