@@ -6,9 +6,6 @@ import { eq } from "drizzle-orm";
 
 export const GET = async (request: NextRequest) => {
   const uid = cookies().get("user_id")?.value;
-  // const req = request.nextUrl;
-  // const uid = req.searchParams.get("user_id");
-  // console.log(uid);
   if (uid) {
     try {
       const res = await db
@@ -40,24 +37,31 @@ export const GET = async (request: NextRequest) => {
 
 export const POST = async (request: NextRequest) => {
   const req = await request.json();
-  const uid = uuid();
-  const setCookies = cookies();
-  const user_id = setCookies.get("user_id")?.value;
-
+  const user_id = cookies().get("user_id")?.value;
+  
   if (!user_id) {
-    setCookies.set("user_id", uid);
+    const uid = uuid();
+    cookies().set("user_id", uid);
   }
-
   try {
-    const res = await db
+    const existingProduct = await db
+        .select()
+        .from(cartTable)
+        .where(eq(cartTable.product_id, req.product_id));
+    
+    if(!existingProduct){
+      const res = await db
       .insert(cartTable)
       .values({
         product_id: req.product_id,
         quantity: req.quantity,
-        user_id: setCookies.get("user_id")?.value as string,
+        user_id: cookies().get("user_id")?.value as string,
       })
       .returning();
     return NextResponse.json({ res });
+    }else {
+      console.log('product already exists')
+    }
   } catch (error) {
     console.log(error);
     return NextResponse.json({ message: "Something went wrong" });

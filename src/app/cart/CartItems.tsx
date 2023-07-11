@@ -59,7 +59,7 @@ const CartItems = () => {
           {productsFromSentiy &&
             productsFromSentiy.map((product: CartProduct) => {
               return (
-                <div className="flex flex-col gap-4   lg:w-2/3 lg:gap-8">
+                <div className="flex flex-col gap-4 md:flex-row  lg:w-2/3 lg:gap-8" key={product.title}>
                   {/* image */}
                   <div>
                     <Image
