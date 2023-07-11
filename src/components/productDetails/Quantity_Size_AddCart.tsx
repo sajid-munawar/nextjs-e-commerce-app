@@ -19,17 +19,6 @@ export default function Quantity_Size_AddCart({
   const dispatch = useDispatch();
   const itemCount = useSelector((state: RootState) => state.itemCount.value);
 
-  const getProducts = async () => {
-    const res = await fetch("/api/cart", {
-      method: "GET",
-    });
-    // const result = await res.json();
-    console.log("products from get request", res);
-  };
-  useEffect(() => {
-    getProducts();
-  }, []);
-
   const handleAddToCart = async () => {
     const res = await fetch("/api/cart", {
       method: "POST",
@@ -38,8 +27,12 @@ export default function Quantity_Size_AddCart({
         quantity: itemCount,
       }),
     });
-    const result = await res.json();
-    console.log(result);
+    // console.log("this is res", res);
+    if (res.ok) {
+      toast.success("Item added to cart");
+    }
+    // const result = await res.json();
+    // console.log(result);
   };
 
   return (
