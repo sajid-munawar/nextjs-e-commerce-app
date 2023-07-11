@@ -26,7 +26,7 @@ const CartItems = () => {
     });
     const result = await res.json();
     setItemsFromDb(result.res);
-    console.log("products from get request", result.res);
+    // console.log("products from get request", result.res);
   };
   useEffect(() => {
     getProducts();
@@ -49,21 +49,6 @@ const CartItems = () => {
     }
   }, [itemsFromDb]);
 
-  // useEffect(() => {
-  //   if (itemsFromDb) {
-  //     const temp: CartProduct[] = [];
-  //     itemsFromDb.forEach(async (item) => {
-  //       const res = await client.fetch(
-  //         `*[_type=="products" && _id=="${item.product_id}"]{title,image,price,category}[0]`
-  //       );
-  //       // const data: CartProduct = await res.json();
-  //       console.log("this is res", res);
-  //       temp.push(res);
-  //     });
-  //     console.log("this is temp", temp);
-  //     setProductsFromSanity(temp);
-  //   }
-  // }, [itemsFromDb]);
   return (
     <>
       {/* product image and summary container */}
@@ -74,7 +59,7 @@ const CartItems = () => {
           {productsFromSentiy &&
             productsFromSentiy.map((product: CartProduct) => {
               return (
-                <div className="flex flex-col gap-4 md:flex-row  lg:w-2/3 lg:gap-8">
+                <div className="flex flex-col gap-4   lg:w-2/3 lg:gap-8">
                   {/* image */}
                   <div>
                     <Image
