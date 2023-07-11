@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 // import { RootState } from "../store/store";
 
 const NavCart = () => {
-  const count = useSelector((state: RootState) => state.counter.value);
+  const count = useSelector((state: RootState) => state.itemCount.value);
 
   //   const productQuantity = useSelector(
   //     (state: RootState) => state.CartSlice.totalQuantity
