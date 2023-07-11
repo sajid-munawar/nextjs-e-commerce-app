@@ -6,7 +6,6 @@ import { eq } from "drizzle-orm";
 
 export const GET = async (request: NextRequest) => {
   const uid = cookies().get("user_id")?.value;
-  console.log("erty", uid);
   // const req = request.nextUrl;
   // const uid = req.searchParams.get("user_id");
   // console.log(uid);
@@ -16,7 +15,6 @@ export const GET = async (request: NextRequest) => {
         .select()
         .from(cartTable)
         .where(eq(cartTable.user_id, uid));
-      // console.log(res);
       return NextResponse.json({ res });
     } catch (error) {
       // console.log(error);
