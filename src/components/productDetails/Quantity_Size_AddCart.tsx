@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 // import type { RootState } from "@/store/store";
 // import { decrement, increment } from "@/store/slices/counterSlice";
 import { BsCart } from "react-icons/bs";
+import { BiLoaderCircle } from "react-icons/bi";
 
 // import { counterActions } from "@/app/store/slice/CartSlice";
 
@@ -19,8 +20,10 @@ export default function Quantity_Size_AddCart({
   // const dispatch = useDispatch();
   // const itemCount = useSelector((state: RootState) => state.itemCount.value);
   const [itemsQuanity, setItemsQuantity] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleAddToCart = async () => {
+    setLoading(true);
     const res = await fetch("/api/cart", {
       method: "POST",
       body: JSON.stringify({
@@ -30,6 +33,7 @@ export default function Quantity_Size_AddCart({
     });
     if (res.ok) {
       toast.success("Item added to cart");
+      setLoading(false);
     }
     // const result = await res.json();
     // console.log(result);
@@ -129,14 +133,21 @@ export default function Quantity_Size_AddCart({
         </div>
         <div className="flex items-center gap-4">
           <div className="flex w-4/5 min-w-[180px] items-center justify-center border-l-2 border-t-2 border-textGrey bg-blackButton p-4 text-base font-semibold text-white lg:w-2/6">
-            <button
-              onClick={handleAddToCart}
-              // onClick={addCartIncrement}
-              className="flex flex-row items-center justify-center gap-3"
-            >
-              <BsCart size={20} />
-              <div className="text-center">Add to Cart</div>
-            </button>
+            {!loading ? (
+              <button
+                onClick={handleAddToCart}
+                // onClick={addCartIncrement}
+                className="flex flex-row items-center justify-center gap-3"
+              >
+                <BsCart size={20} />
+                <div className="text-center">Add to Cart</div>
+              </button>
+            ) : (
+              <button className="flex flex-row items-center justify-center gap-3">
+                <BiLoaderCircle size={20} />
+                <div className="text-center">Adding</div>
+              </button>
+            )}
           </div>
           <div className="min-w-[120px] text-2xl font-bold text-textBlack">{`$ ${product.price}.00`}</div>
         </div>
