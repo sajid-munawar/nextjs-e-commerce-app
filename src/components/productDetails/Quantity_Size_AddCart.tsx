@@ -28,7 +28,6 @@ export default function Quantity_Size_AddCart({
         quantity: itemsQuanity,
       }),
     });
-    // console.log("this is res", res);
     if (res.ok) {
       toast.success("Item added to cart");
     }
