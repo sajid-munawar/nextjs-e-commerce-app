@@ -14,15 +14,16 @@ type CartProduct = {
 //   // fetch()
 // }
 
-const initialState = async () => {
-  const res = await fetch("/api/cart", {
-    method: "GET",
-  });
-  const result = await res.json();
-  return result.res;
-  // setItemsFromDb(result.res);
-  // console.log("products from get request", result.res);
-};
+const initialState = 0;
+//  async () => {
+//   const res = await fetch("/api/cart", {
+//     method: "GET",
+//   });
+//   const result = await res.json();
+//   return result.res;
+// setItemsFromDb(result.res);
+// console.log("products from get request", result.res);
+// };
 console.log("initial state", initialState);
 
 const CartItemsSlics = createSlice({
