@@ -1,12 +1,12 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { IProductsDetail } from "../../interface/interface";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 // import { RootState } from "@/app/store/store";
-import type { RootState } from "@/store/store";
-import { decrement, increment } from "@/store/slices/counterSlice";
+// import type { RootState } from "@/store/store";
+// import { decrement, increment } from "@/store/slices/counterSlice";
 import { BsCart } from "react-icons/bs";
 
 // import { counterActions } from "@/app/store/slice/CartSlice";
@@ -16,15 +16,16 @@ export default function Quantity_Size_AddCart({
 }: {
   product: IProductsDetail;
 }) {
-  const dispatch = useDispatch();
-  const itemCount = useSelector((state: RootState) => state.itemCount.value);
+  // const dispatch = useDispatch();
+  // const itemCount = useSelector((state: RootState) => state.itemCount.value);
+  const [itemsQuanity, setItemsQuantity] = useState<number>(1);
 
   const handleAddToCart = async () => {
     const res = await fetch("/api/cart", {
       method: "POST",
       body: JSON.stringify({
         product_id: product._id,
-        quantity: itemCount,
+        quantity: itemsQuanity,
       }),
     });
     // console.log("this is res", res);
@@ -33,6 +34,15 @@ export default function Quantity_Size_AddCart({
     }
     // const result = await res.json();
     // console.log(result);
+  };
+  const handleInrease = () => {
+    setItemsQuantity(itemsQuanity + 1);
+  };
+
+  const handleDescrease = () => {
+    if (itemsQuanity > 1) {
+      setItemsQuantity(itemsQuanity - 1);
+    }
   };
 
   return (
@@ -102,16 +112,16 @@ export default function Quantity_Size_AddCart({
           <div className="flex items-center gap-1">
             <button
               //  onClick={smallDec}
-              onClick={() => dispatch(decrement())}
+              onClick={handleDescrease}
               className="mr-2 cursor-pointer"
             >
               -
             </button>
             {/* <span>{specificItem?.quantity}</span> */}
-            <span>{itemCount}</span>
+            <span>{itemsQuanity}</span>
             <button
               // onClick={smallInc}
-              onClick={() => dispatch(increment())}
+              onClick={handleInrease}
               className="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-textBlack"
             >
               +
