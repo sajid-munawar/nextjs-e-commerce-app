@@ -1,14 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import {
-  AiOutlineDelete,
-  AiOutlineMinusCircle,
-  AiOutlinePlusCircle,
-} from "react-icons/ai";
+import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import { CartProduct } from "@/interface/interface";
 import { urlForImage } from "../../../sanity/lib/image";
 import { client } from "../../../sanity/lib/client";
+import DeleteItem from "@/components/DeleteItem";
 
 type item = {
   id: number;
@@ -38,7 +35,7 @@ const CartItems = () => {
         const temp: CartProduct[] = [];
         for (const item of itemsFromDb) {
           const res = await client.fetch(
-            `*[_type=="products" && _id=="${item.product_id}"]{title,image,price,category}[0]`
+            `*[_type=="products" && _id=="${item.product_id}"]{title,image,price,category,_id}[0]`
           );
           temp.push(res);
         }
@@ -59,7 +56,10 @@ const CartItems = () => {
           {productsFromSentiy &&
             productsFromSentiy.map((product: CartProduct) => {
               return (
-                <div className="flex flex-col gap-4 md:flex-row  lg:w-2/3 lg:gap-8" key={product.title}>
+                <div
+                  className="flex flex-col gap-4 md:flex-row  lg:w-2/3 lg:gap-8"
+                  key={product._id}
+                >
                   {/* image */}
                   <div>
                     <Image
@@ -75,7 +75,7 @@ const CartItems = () => {
                     <div className="flex justify-between pt-8 md:pt-0">
                       <div className="text-2xl font-light">{product.title}</div>
                       {/* Delete icon */}
-                      <AiOutlineDelete size={25} />
+                      <DeleteItem _id={product._id} />
                     </div>
                     <div className="py-2 font-semibold text-gray-700">
                       {product.category}
