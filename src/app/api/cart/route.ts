@@ -37,9 +37,9 @@ export const GET = async (request: NextRequest) => {
 export const POST = async (request: NextRequest) => {
   const req = await request.json();
   const user_id = cookies().get("user_id")?.value;
+  const uid = uuid();
 
   if (!user_id) {
-    const uid = uuid();
     cookies().set("user_id", uid);
   }
 
@@ -85,15 +85,16 @@ export const POST = async (request: NextRequest) => {
 
 export const DELETE = async (request: NextRequest) => {
   const req = await request.json();
+  console.log('reqqwert',req)
   const user_id = cookies().get("user_id")?.value;
-  try {
-    const res = await db
-      .delete(cartTable)
-      .where(
-        and(eq(cartTable.product_id, req._id), eq(cartTable.user_id, user_id!))
-      );
-    // return NextResponse.json({ res });
-  } catch (error) {
-    return NextResponse.json({ message: "Something went wrong" });
-  }
+  // try {
+  //   const res = await db
+  //     .delete(cartTable)
+  //     .where(
+  //       and(eq(cartTable.product_id, req.id), eq(cartTable.user_id, user_id!))
+  //     );
+  //   // return NextResponse.json( res );
+  // } catch (error) {
+  //   return NextResponse.json({ message: "Something went wrong" });
+  // }
 };

@@ -48,60 +48,66 @@ const CartItems = () => {
 
   return (
     <>
-      {/* product image and summary container */}
-      {!productsFromSentiy ? (
-        "Your cart is empty"
-      ) : (
-        <>
-          {productsFromSentiy &&
-            productsFromSentiy.map((product: CartProduct) => {
-              return (
-                <div
-                  className="flex flex-col gap-4 md:flex-row  lg:w-2/3 lg:gap-8"
-                  key={product._id}
-                >
-                  {/* image */}
-                  <div>
-                    <Image
-                      src={urlForImage(product.image).url()}
-                      height={300}
-                      width={250}
-                      alt="product"
-                      className="rounded-md"
-                    />
-                  </div>
-                  {/* product details */}
-                  <div className="flex flex-grow flex-col md:gap-4">
-                    <div className="flex justify-between pt-8 md:pt-0">
-                      <div className="text-2xl font-light">{product.title}</div>
-                      {/* Delete icon */}
-                      <DeleteItem _id={product._id} />
+      <div className="lg:w-2/3 lg:gap-8">
+        {/* product image and summary container */}
+        {!productsFromSentiy ? (
+          "Loading..."
+        ) : (
+          <>
+            {productsFromSentiy &&
+              productsFromSentiy.map((product: CartProduct) => {
+                return (
+                  <div
+                    className="my-8 flex flex-col gap-4 pr-4  shadow-lg md:flex-row "
+                    key={product?._id}
+                  >
+                    {/* image */}
+                    <div>
+                      <Image
+                        src={
+                          product?.image ? urlForImage(product.image).url() : ""
+                        }
+                        height={300}
+                        width={250}
+                        alt="product"
+                        className="rounded-md"
+                      />
                     </div>
-                    <div className="py-2 font-semibold text-gray-700">
-                      {product.category}
-                    </div>
-                    <div className="font-semibold">Delivery Estimateion</div>
-                    <div className="py-2 font-semibold text-yellow-500">
-                      5 Working days
-                    </div>
-                    <div className="flex">
-                      <div className="text-xl font-semibold">
-                        ${product.price}
+                    {/* product details */}
+                    <div className="flex flex-grow flex-col md:gap-4">
+                      <div className="flex justify-between pt-8 md:pt-0">
+                        <div className="text-2xl font-light">
+                          {product?.title}
+                        </div>
+                        {/* Delete icon */}
+                        <DeleteItem _id={product?._id} />
                       </div>
-                      <div className="ml-auto flex items-center gap-4">
-                        {/* Minus */}
-                        <AiOutlineMinusCircle size={25} />
-                        <span>1</span>
-                        {/* Plus */}
-                        <AiOutlinePlusCircle size={25} />
+                      <div className="py-2 font-semibold text-gray-700">
+                        {product?.category}
+                      </div>
+                      <div className="font-semibold">Delivery Estimateion</div>
+                      <div className="py-2 font-semibold text-yellow-500">
+                        5 Working days
+                      </div>
+                      <div className="flex">
+                        <div className="text-xl font-semibold">
+                          ${product?.price}
+                        </div>
+                        <div className="ml-auto flex items-center gap-4">
+                          {/* Minus */}
+                          <AiOutlineMinusCircle size={25} />
+                          <span>1</span>
+                          {/* Plus */}
+                          <AiOutlinePlusCircle size={25} />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-        </>
-      )}
+                );
+              })}
+          </>
+        )}
+      </div>
     </>
   );
 };
