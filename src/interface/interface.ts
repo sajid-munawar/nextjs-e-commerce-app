@@ -10,6 +10,7 @@ export type CartProduct = {
   image: Iimage;
   price: number;
   category: string;
+  _id: string;
 };
 
 export type IProductsDetail = {
