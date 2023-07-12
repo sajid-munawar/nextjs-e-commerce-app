@@ -36,6 +36,7 @@ export default function Quantity_Size_AddCart({
       title: product.title,
       category: product.category,
     };
+    toast.success("Item added to cart");
 
     dispatch(addItemToCart(newItem));
     // const res = await fetch("/api/cart", {
