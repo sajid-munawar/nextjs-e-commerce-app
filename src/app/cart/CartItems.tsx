@@ -63,7 +63,9 @@ const CartItems = () => {
                   {/* image */}
                   <div>
                     <Image
-                      src={urlForImage(product.image).url()}
+                      src={
+                        product?.image ? urlForImage(product.image).url() : ""
+                      }
                       height={300}
                       width={250}
                       alt="product"
