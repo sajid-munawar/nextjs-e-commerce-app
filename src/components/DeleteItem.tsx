@@ -1,22 +1,26 @@
 import React from "react";
 import { AiOutlineDelete } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { removeItemFromCart } from "@/store/slices/cartItemsSlice";
 
 const DeleteItem = ({ _id }: { _id: string }) => {
-  const handleDeleteItem = async () => {
-    try {
-      const res = await fetch("/api/cart", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: _id,
-        }),
-      });
-      return res;
-    } catch (error) {
-      console.log("error from delete api call", error);
-    }
+  const dispatch = useDispatch();
+  const handleDeleteItem = () => {
+    dispatch(removeItemFromCart(_id));
+    // try {
+    //   const res = await fetch("/api/cart", {
+    //     method: "DELETE",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       id: _id,
+    //     }),
+    //   });
+    //   return res;
+    // } catch (error) {
+    //   console.log("error from delete api call", error);
+    // }
   };
 
   return (
