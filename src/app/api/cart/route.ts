@@ -44,40 +44,40 @@ export const POST = async (request: NextRequest) => {
   }
 
   try {
-    // const existingProduct = await db
-    //   .select()
-    //   .from(cartTable)
-    //   .where(
-    //     and(
-    //       eq(cartTable.product_id, req.product_id),
-    //       eq(cartTable.user_id, user_id!)
-    //     )
-    //   );
+    const existingProduct = await db
+      .select()
+      .from(cartTable)
+      .where(
+        and(
+          eq(cartTable.product_id, req.product_id),
+          eq(cartTable.user_id, user_id!)
+        )
+      );
 
-    // if (existingProduct.length > 0) {
-    //   const res = await db
-    //     .update(cartTable)
-    //     .set({ quantity: req.quantity })
-    //     .where(
-    //       and(
-    //         eq(cartTable.product_id, req.product_id),
-    //         eq(cartTable.user_id, user_id!)
-    //       )
-    //     )
-    //     .returning();
-    //   return NextResponse.json({ res });
-    // } else {
-    const res = await db
-      .insert(cartTable)
-      .values({
-        product_id: req.product_id,
-        quantity: req.quantity,
-        user_id: cookies().get("user_id")?.value as string,
-      })
-      .returning();
+    if (existingProduct.length > 0) {
+      const res = await db
+        .update(cartTable)
+        .set({ quantity: req.quantity })
+        .where(
+          and(
+            eq(cartTable.product_id, req.product_id),
+            eq(cartTable.user_id, user_id!)
+          )
+        )
+        .returning();
+      return NextResponse.json({ res });
+    } else {
+      const res = await db
+        .insert(cartTable)
+        .values({
+          product_id: req.product_id,
+          quantity: req.quantity,
+          user_id: cookies().get("user_id")?.value as string,
+        })
+        .returning();
 
-    return NextResponse.json({ res });
-    // }
+      return NextResponse.json({ res });
+    }
   } catch (error) {
     console.log(error);
     return NextResponse.json({ message: "Something went wrong" });
