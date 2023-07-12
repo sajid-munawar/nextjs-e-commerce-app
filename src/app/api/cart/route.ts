@@ -55,7 +55,17 @@ export const POST = async (request: NextRequest) => {
       );
 
     if (existingProduct.length > 0) {
-      console.log("Product already exists");
+      const res = await db
+        .update(cartTable)
+        .set({ quantity: req.quantity })
+        .where(
+          and(
+            eq(cartTable.product_id, req.product_id),
+            eq(cartTable.user_id, user_id!)
+          )
+        )
+        .returning();
+      return NextResponse.json({ res });
     } else {
       const res = await db
         .insert(cartTable)
