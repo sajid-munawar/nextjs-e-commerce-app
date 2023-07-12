@@ -3,12 +3,15 @@ import React, { useEffect, useState } from "react";
 import { IProductsDetail } from "../../interface/interface";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { RootState } from "@/app/store/store";
+import { RootState } from "@/store/store";
 // import type { RootState } from "@/store/store";
 // import { decrement, increment } from "@/store/slices/counterSlice";
+import { addItemToCart } from "@/store/slices/cartItemsSlice";
 import { BsCart } from "react-icons/bs";
 import { BiLoaderCircle } from "react-icons/bi";
+import { v4 as uuid } from "uuid";
 
 // import { counterActions } from "@/app/store/slice/CartSlice";
 
@@ -21,20 +24,31 @@ export default function Quantity_Size_AddCart({
   // const itemCount = useSelector((state: RootState) => state.itemCount.value);
   const [itemsQuanity, setItemsQuantity] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   const handleAddToCart = async () => {
     setLoading(true);
-    const res = await fetch("/api/cart", {
-      method: "POST",
-      body: JSON.stringify({
-        product_id: product._id,
-        quantity: itemsQuanity,
-      }),
-    });
-    if (res.ok) {
-      toast.success("Item added to cart");
-      setLoading(false);
-    }
+    const newItem = {
+      product_id: product._id,
+      quantity: itemsQuanity,
+      image: product.image,
+      price: product.price,
+      title: product.title,
+      category: product.category,
+    };
+
+    dispatch(addItemToCart(newItem));
+    // const res = await fetch("/api/cart", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     product_id: product._id,
+    //     quantity: itemsQuanity,
+    //   }),
+    // });
+    // if (res.ok) {
+    //   toast.success("Item added to cart");
+    // }
+    setLoading(false);
     // const result = await res.json();
     // console.log(result);
   };

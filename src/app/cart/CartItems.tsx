@@ -2,64 +2,65 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
-import { CartProduct } from "@/interface/interface";
+import { ICartProduct } from "@/interface/interface";
 import { urlForImage } from "../../../sanity/lib/image";
 import { client } from "../../../sanity/lib/client";
 import DeleteItem from "@/components/DeleteItem";
-
-type item = {
-  id: number;
-  product_id: string;
-  qunatity: number;
-  user_id: string;
-};
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 
 const CartItems = () => {
-  const [itemsFromDb, setItemsFromDb] = useState<item[]>();
-  const [productsFromSentiy, setProductsFromSanity] = useState<CartProduct[]>();
-  const getProducts = async () => {
-    const res = await fetch("/api/cart", {
-      method: "GET",
-    });
-    const result = await res.json();
-    setItemsFromDb(result.res);
-    // console.log("products from get request", result.res);
-  };
-  useEffect(() => {
-    getProducts();
-  }, []);
-  // fetch products
-  useEffect(() => {
-    if (itemsFromDb) {
-      const fetchData = async () => {
-        const temp: CartProduct[] = [];
-        for (const item of itemsFromDb) {
-          const res = await client.fetch(
-            `*[_type=="products" && _id=="${item.product_id}"]{title,image,price,category,_id}[0]`
-          );
-          temp.push(res);
-        }
-        setProductsFromSanity(temp);
-      };
+  const cartItems = useSelector((state: RootState) => state.cartItems);
 
-      fetchData();
-    }
-  }, [itemsFromDb]);
+  console.log("cartItems", cartItems);
+  // const [itemsFromDb, setItemsFromDb] = useState<item[]>();
+  // const [productsFromSentiy, setProductsFromSanity] =
+  //   useState<ICartProduct[]>();
+  // const getProducts = async () => {
+  //   const res = await fetch("/api/cart", {
+  //     method: "GET",
+  //   });
+  //   const result = await res.json();
+  //   setItemsFromDb(result.res);
+  //   // console.log("products from get request", result.res);
+  // };
+  // useEffect(() => {
+  //   getProducts();
+  // }, []);
+  // // fetch products
+  // useEffect(() => {
+  //   if (itemsFromDb) {
+  //     const fetchData = async () => {
+  //       const temp: ICartProduct[] = [];
+  //       for (const item of itemsFromDb) {
+  //         const res = await client.fetch(
+  //           `*[_type=="products" && _id=="${item.product_id}"]{title,image,price,category,_id}[0]`
+  //         );
+  //         temp.push(res);
+  //       }
+  //       setProductsFromSanity(temp);
+  //     };
+
+  //     fetchData();
+  //   }
+  // }, [itemsFromDb]);
 
   return (
     <>
       <div className="lg:w-2/3 lg:gap-8">
         {/* product image and summary container */}
-        {!productsFromSentiy ? (
-          "Loading..."
+        {cartItems.length < 1 ? (
+          <div className="pt-12 text-center text-2xl font-semibold">
+            Your cart is empty
+          </div>
         ) : (
           <>
-            {productsFromSentiy &&
-              productsFromSentiy.map((product: CartProduct) => {
+            {cartItems &&
+              cartItems.map((product: ICartProduct) => {
                 return (
                   <div
                     className="my-8 flex flex-col gap-4 pr-4  shadow-lg md:flex-row "
-                    key={product?._id}
+                    key={product?.product_id}
                   >
                     {/* image */}
                     <div>
@@ -80,7 +81,7 @@ const CartItems = () => {
                           {product?.title}
                         </div>
                         {/* Delete icon */}
-                        <DeleteItem _id={product?._id} />
+                        <DeleteItem _id={product?.product_id} />
                       </div>
                       <div className="py-2 font-semibold text-gray-700">
                         {product?.category}
@@ -96,7 +97,7 @@ const CartItems = () => {
                         <div className="ml-auto flex items-center gap-4">
                           {/* Minus */}
                           <AiOutlineMinusCircle size={25} />
-                          <span>1</span>
+                          <span>{product.quantity}</span>
                           {/* Plus */}
                           <AiOutlinePlusCircle size={25} />
                         </div>

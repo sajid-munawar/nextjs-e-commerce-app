@@ -5,12 +5,13 @@ export type IProducts = {
   image: Iimage;
 };
 
-export type CartProduct = {
+export type ICartProduct = {
   title: string;
   image: Iimage;
-  price: number;
+  price: number|string;
   category: string;
-  _id: string;
+  quantity:number;
+  product_id: string,
 };
 
 export type IProductsDetail = {
