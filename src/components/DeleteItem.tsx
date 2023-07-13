@@ -4,10 +4,10 @@ import { useDispatch } from "react-redux";
 import { removeItemFromCart } from "@/store/slices/cartItemsSlice";
 import { ToastContainer, toast } from "react-toastify";
 
-const DeleteItem = ({ _id }: { _id: string }) => {
+const DeleteItem = ({ _id, size }: { _id: string; size: string }) => {
   const dispatch = useDispatch();
   const handleDeleteItem = () => {
-    dispatch(removeItemFromCart(_id));
+    dispatch(removeItemFromCart(_id, size));
     toast.warn("Item removed from cart");
 
     // try {
