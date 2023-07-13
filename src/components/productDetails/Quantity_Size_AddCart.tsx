@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "@/store/slices/cartItemsSlice";
 import { BsCart } from "react-icons/bs";
-import { BiLoaderCircle } from "react-icons/bi";
 
 export default function Quantity_Size_AddCart({
   product,
@@ -14,12 +13,10 @@ export default function Quantity_Size_AddCart({
   product: IProductsDetail;
 }) {
   const [itemsQuanity, setItemsQuantity] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(false);
   const [selectedSize, setSelectedSize] = useState("m");
   const dispatch = useDispatch();
 
-  const handleAddToCart = async () => {
-    setLoading(true);
+  const handleAddToCart = () => {
     const newItem = {
       product_id: product._id,
       quantity: itemsQuanity,
@@ -125,20 +122,13 @@ export default function Quantity_Size_AddCart({
         </div>
         <div className="flex items-center gap-4">
           <div className="flex w-4/5 min-w-[180px] items-center justify-center border-l-2 border-t-2 border-textGrey bg-blackButton p-4 text-base font-semibold text-white lg:w-2/6">
-            {!loading ? (
-              <button
-                onClick={handleAddToCart}
-                className="flex flex-row items-center justify-center gap-3"
-              >
-                <BsCart size={20} />
-                <div className="text-center">Add to Cart</div>
-              </button>
-            ) : (
-              <button className="flex flex-row items-center justify-center gap-3">
-                <BiLoaderCircle size={20} />
-                <div className="text-center">Adding</div>
-              </button>
-            )}
+            <button
+              onClick={handleAddToCart}
+              className="flex flex-row items-center justify-center gap-3"
+            >
+              <BsCart size={20} />
+              <div className="text-center">Add to Cart</div>
+            </button>
           </div>
           <div className="min-w-[120px] text-2xl font-bold text-textBlack">{`$ ${product.price}.00`}</div>
         </div>
