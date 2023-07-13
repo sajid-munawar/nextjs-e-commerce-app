@@ -21,7 +21,7 @@ export default function Quantity_Size_AddCart({
       product_id: product._id,
       quantity: itemsQuanity,
       image: product.image,
-      price: product.price,
+      price: +product.price,
       title: product.title,
       category: product.category,
       size: selectedSize,
@@ -130,7 +130,9 @@ export default function Quantity_Size_AddCart({
               <div className="text-center">Add to Cart</div>
             </button>
           </div>
-          <div className="min-w-[120px] text-2xl font-bold text-textBlack">{`$ ${product.price}.00`}</div>
+          <div className="min-w-[120px] text-2xl font-bold text-textBlack">{`$ ${
+            +product.price * itemsQuanity
+          }.00`}</div>
         </div>
       </div>
     </>
