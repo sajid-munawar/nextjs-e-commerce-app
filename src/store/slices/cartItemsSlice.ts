@@ -9,17 +9,33 @@ const cartItemsSlice = createSlice({
   initialState,
   reducers: {
     addItemToCart: (state, action) => {
-      console.log('action.payload', action.payload)
       const newItem = action.payload;
-      const existingItem = state.find(
+      const quantity = newItem.quantity;
+      const price = +newItem.price; // Convert price to a number
+      
+      const existingItemIndex = state.findIndex(
         (item) =>
           item.product_id === newItem.product_id && item.size === newItem.size
       );
-      if (!existingItem) {
-        return [...state, newItem];
+      
+      if (existingItemIndex !== -1) {
+        // If item already exists, update the quantity and adjust the price
+        const updatedState = [...state];
+        const existingItem = updatedState[existingItemIndex];
+        existingItem.quantity += quantity;
+        existingItem.price = +existingItem.price + price * quantity;
+        return updatedState;
+      } else {
+        // If item doesn't exist, create a new item with the adjusted price
+        const newItemWithAdjustedPrice = {
+          ...newItem,
+          quantity: quantity,
+          price: price * quantity,
+        };
+        return [...state, newItemWithAdjustedPrice];
       }
-      return state;
     },
+    
     removeItemFromCart: (state, action) => {
       const { productId, size } = action.payload;
       return state.filter(

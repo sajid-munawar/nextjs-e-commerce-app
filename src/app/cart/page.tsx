@@ -11,7 +11,7 @@ export default function page() {
     0
   );
   const totalAmount: number = cartItems.reduce(
-    (total: number, item) => total + +item.price * item.quantity,
+    (total: number, item) => total + +item.price,
     0
   );
 
