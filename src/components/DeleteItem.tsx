@@ -28,17 +28,17 @@ const DeleteItem = ({ _id }: { _id: string }) => {
 
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={4000}
-        closeOnClick
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        rtl={false}
-        theme="light"
-      />
       <div onClick={handleDeleteItem} className="cursor-pointer">
+        <ToastContainer
+          position="top-center"
+          autoClose={4000}
+          closeOnClick
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          rtl={false}
+          theme="light"
+        />
         <AiOutlineDelete size={25} />
       </div>
     </>
