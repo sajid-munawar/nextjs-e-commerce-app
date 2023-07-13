@@ -8,10 +8,11 @@ export type IProducts = {
 export type ICartProduct = {
   title: string;
   image: Iimage;
-  price: number|string;
+  price: number | string;
   category: string;
-  quantity:number;
-  product_id: string,
+  quantity: number;
+  product_id: string;
+  size: string;
 };
 
 export type IProductsDetail = {
