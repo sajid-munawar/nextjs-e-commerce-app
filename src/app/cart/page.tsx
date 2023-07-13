@@ -1,13 +1,26 @@
+"use client";
 import React from "react";
+import { useSelector } from "react-redux";
 import CartItems from "./CartItems";
+import { RootState } from "@/store/store";
 
 export default function page() {
+  const cartItems = useSelector((state: RootState) => state.cartItems);
+  const totalQuantity = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+  const totalAmount: number = cartItems.reduce(
+    (total: number, item) => total + +item.price * item.quantity,
+    0
+  );
+
   return (
     <>
       <div className="px-8 lg:px-32">
         <h1 className="mb-8 text-3xl font-bold">Shopping Cart</h1>
         {/* Cart Box */}
-        <div className="flex flex-col gap-4 lg:flex-row ">
+        <div className="flex flex-col gap-4 lg:flex-row">
           {/* product image and summary container */}
           <CartItems />
           {/* summary */}
@@ -15,11 +28,13 @@ export default function page() {
             <h2 className="text-xl font-bold">Order Summary</h2>
             <div className="flex justify-between">
               <div>Quantity</div>
-              <div>1 Product</div>
+              <div>
+                {totalQuantity} Product{totalQuantity !== 1 && "s"}
+              </div>
             </div>
             <div className="flex justify-between">
               <div>Subtotal</div>
-              <div>$195</div>
+              <div>${totalAmount}</div>
             </div>
             <button
               type="submit"
