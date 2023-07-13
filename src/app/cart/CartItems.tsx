@@ -81,10 +81,14 @@ const CartItems = () => {
                           {product?.title}
                         </div>
                         {/* Delete icon */}
-                        <DeleteItem _id={product?.product_id} />
+                        <DeleteItem
+                          _id={product?.product_id}
+                          size={product.size}
+                        />
                       </div>
-                      <div className="py-2 font-semibold text-gray-700">
-                        {product?.category}
+                      <div className="flex justify-between py-2 font-semibold text-gray-700">
+                        <div>{product?.category}</div>
+                        <div>{product.size.toLocaleUpperCase()}</div>
                       </div>
                       <div className="font-semibold">Delivery Estimateion</div>
                       <div className="py-2 font-semibold text-yellow-500">

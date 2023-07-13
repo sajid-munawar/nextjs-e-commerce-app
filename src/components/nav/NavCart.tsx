@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 // import { RootState } from "../store/store";
 
 const NavCart = () => {
-  const count = useSelector((state: RootState) => state.itemCount.value);
+  const cartItems = useSelector((state: RootState) => state.cartItems);
 
   //   const productQuantity = useSelector(
   //     (state: RootState) => state.CartSlice.totalQuantity
@@ -20,7 +20,7 @@ const NavCart = () => {
           <BsCart size={20} />
           <span className="absolute right-1 top-0 h-[18px] w-[18px] items-center justify-center rounded-full bg-red-600 text-center text-sm text-white">
             {/* {productQuantity} */}
-            {count}
+            {cartItems.length}
           </span>
         </div>
       </Link>

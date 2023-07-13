@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { GrClose } from "react-icons/gr";
 import { RiMenu3Line } from "react-icons/ri";
 import { BsCart } from "react-icons/bs";
+import MobileItemCount from "./MobileItemCount";
 
 export default function MobilePopUp() {
   const [open, setOpen] = useState(false);
@@ -47,7 +48,7 @@ export default function MobilePopUp() {
                 <button className="relative rounded-full bg-gray-200 p-4">
                   <BsCart size={25} />
                   <span className="absolute right-1 top-0 h-6 w-6 rounded-full bg-red-600 text-white">
-                    0
+                    <MobileItemCount />
                   </span>
                 </button>
               </Link>
