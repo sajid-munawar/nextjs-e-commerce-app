@@ -71,7 +71,7 @@ export default function Footer() {
           <div>Design & Code by ❤️</div>
           <div className="flex  gap-2 text-center font-semibold text-textBlack">
             <Link href={"https://github.com/sajid-munawar"}>
-              <div>Sajid</div>
+              <div>Sajid Munawar</div>
             </Link>
           </div>
         </div>
