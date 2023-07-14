@@ -7,12 +7,15 @@ import { urlForImage } from "../../../sanity/lib/image";
 import { client } from "../../../sanity/lib/client";
 import DeleteItem from "@/components/DeleteItem";
 import { RootState } from "@/store/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  decrementFromCart,
+  incrementFromCart,
+} from "@/store/slices/cartItemsSlice";
 
 const CartItems = () => {
   const cartItems = useSelector((state: RootState) => state.cartItems);
-
-  console.log("cartItems", cartItems);
+  const dispatch = useDispatch();
   // const [itemsFromDb, setItemsFromDb] = useState<item[]>();
   // const [productsFromSentiy, setProductsFromSanity] =
   //   useState<ICartProduct[]>();
@@ -60,7 +63,7 @@ const CartItems = () => {
                 return (
                   <div
                     className="my-8 flex flex-col gap-4 pr-4  shadow-lg md:flex-row "
-                    key={product?.product_id}
+                    key={product?.product_id + product?.size}
                   >
                     {/* image */}
                     <div>
@@ -99,11 +102,21 @@ const CartItems = () => {
                           ${product?.price}
                         </div>
                         <div className="ml-auto flex items-center gap-4">
-                          {/* Minus */}
-                          <AiOutlineMinusCircle size={25} />
+                          <div
+                            className="cursor-pointer"
+                            onClick={() => dispatch(decrementFromCart(product))}
+                          >
+                            {/* Minus */}
+                            <AiOutlineMinusCircle size={25} />
+                          </div>
                           <span>{product.quantity}</span>
-                          {/* Plus */}
-                          <AiOutlinePlusCircle size={25} />
+                          <div
+                            className="cursor-pointer"
+                            onClick={() => dispatch(incrementFromCart(product))}
+                          >
+                            {/* Plus */}
+                            <AiOutlinePlusCircle size={25} />
+                          </div>
                         </div>
                       </div>
                     </div>

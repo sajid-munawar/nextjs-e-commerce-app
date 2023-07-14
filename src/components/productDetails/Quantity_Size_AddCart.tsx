@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "@/store/slices/cartItemsSlice";
 import { BsCart } from "react-icons/bs";
+import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 
 export default function Quantity_Size_AddCart({
   product,
@@ -21,7 +22,7 @@ export default function Quantity_Size_AddCart({
       product_id: product._id,
       quantity: itemsQuanity,
       image: product.image,
-      price: product.price,
+      price: +product.price,
       title: product.title,
       category: product.category,
       size: selectedSize,
@@ -107,16 +108,13 @@ export default function Quantity_Size_AddCart({
           <div className="text-base font-bold leading-4 tracking-wider text-textBlack">
             Quantity
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center justify-between gap-2">
             <button onClick={handleDescrease} className="mr-2 cursor-pointer">
-              -
+              <AiOutlineMinusCircle size={25} />
             </button>
-            <span>{itemsQuanity}</span>
-            <button
-              onClick={handleInrease}
-              className="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-textBlack"
-            >
-              +
+            <div>{itemsQuanity}</div>
+            <button onClick={handleInrease}>
+              <AiOutlinePlusCircle size={25} />
             </button>
           </div>
         </div>
@@ -130,7 +128,9 @@ export default function Quantity_Size_AddCart({
               <div className="text-center">Add to Cart</div>
             </button>
           </div>
-          <div className="min-w-[120px] text-2xl font-bold text-textBlack">{`$ ${product.price}.00`}</div>
+          <div className="min-w-[120px] text-2xl font-bold text-textBlack">{`$ ${
+            +product.price * itemsQuanity
+          }.00`}</div>
         </div>
       </div>
     </>
