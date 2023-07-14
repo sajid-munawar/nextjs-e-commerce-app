@@ -12,12 +12,12 @@ const cartItemsSlice = createSlice({
       const newItem = action.payload;
       const quantity = newItem.quantity;
       const price = +newItem.price; // Convert price to a number
-      
+
       const existingItemIndex = state.findIndex(
         (item) =>
           item.product_id === newItem.product_id && item.size === newItem.size
       );
-      
+
       if (existingItemIndex !== -1) {
         // If item already exists, update the quantity and adjust the price
         const updatedState = [...state];
@@ -35,7 +35,7 @@ const cartItemsSlice = createSlice({
         return [...state, newItemWithAdjustedPrice];
       }
     },
-    
+
     removeItemFromCart: (state, action) => {
       const { productId, size } = action.payload;
       return state.filter(
