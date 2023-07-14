@@ -18,7 +18,7 @@ export default function Footer() {
             width={140}
             alt="Dine market logo"
           />
-          <p className="text-textGrey max-w-xs">
+          <p className="max-w-xs text-textGrey">
             Small, artisan label that offers a thoughtfully curated collection
             of high quality everyday essentials made.
           </p>
@@ -43,7 +43,7 @@ export default function Footer() {
           </div>
         </div>
         {/* Box 2 */}
-        <div className="text-textGrey flex flex-col gap-4">
+        <div className="flex flex-col gap-4 text-textGrey">
           <div className="font-bold">Company</div>
           <div>About</div>
           <div>Terms of Use</div>
@@ -52,28 +52,24 @@ export default function Footer() {
           <div>Contact Us</div>
         </div>
         {/* Box 3 */}
-        <div className="text-textGrey flex flex-col gap-4">
+        <div className="flex flex-col gap-4 text-textGrey">
           <div className="font-bold">Support</div>
           <div>Support Carrer</div>
           <div>24h Service</div>
           <div>Quick Chat</div>
         </div>
         {/* Box 4 */}
-        <div className="text-textGrey flex flex-col gap-4">
+        <div className="flex flex-col gap-4 text-textGrey">
           <div className="font-bold">Contact</div>
           <div>Whatsapp</div>
           <div>Support 24h</div>
         </div>
       </div>
-      <div className=" text-textGrey flex flex-col justify-around gap-5 border-t-[1px] border-black px-8 py-4 lg:flex-row lg:items-center">
+      <div className=" flex flex-col justify-around gap-5 border-t-[1px] border-black px-8 py-4 text-textGrey lg:flex-row lg:items-center">
         <div>Copyright © 2023 Dine Market</div>
         <div className=" flex flex-col justify-center gap-1">
           <div>Design & Code by ❤️</div>
-          <div className="text-textBlack  flex gap-2 text-center font-semibold">
-            <Link href={"https://github.com/karar-shah"}>
-              <div>Karar Shah</div>
-            </Link>
-            <div>|</div>
+          <div className="flex  gap-2 text-center font-semibold text-textBlack">
             <Link href={"https://github.com/sajid-munawar"}>
               <div>Sajid</div>
             </Link>
