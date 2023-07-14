@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import CartItems from "./CartItems";
 import { RootState } from "@/store/store";
 
-export default function page() {
+export default function Page() {
   const cartItems = useSelector((state: RootState) => state.cartItems);
   const totalQuantity = cartItems.reduce(
     (total, item) => total + item.quantity,
