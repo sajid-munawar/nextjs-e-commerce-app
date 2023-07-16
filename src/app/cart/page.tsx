@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import CartItems from "./CartItems";
 import { RootState } from "@/store/store";
+import CheckOut from "@/components/checkout/CheckOut";
 
 export default function Page() {
   const cartItems = useSelector((state: RootState) => state.cartItems);
@@ -36,12 +37,7 @@ export default function Page() {
               <div>Subtotal</div>
               <div>${totalAmount}</div>
             </div>
-            <button
-              type="submit"
-              className="border-l-2 border-t-2 border-textGrey bg-blackButton px-10 py-3 text-sm font-semibold text-white"
-            >
-              Proceed to Checkout
-            </button>
+            <CheckOut />
           </div>
         </div>
       </div>
