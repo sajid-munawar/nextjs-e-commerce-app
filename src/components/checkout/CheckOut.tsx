@@ -1,19 +1,15 @@
 import React from "react";
 import getStripePromise from "@/lib/stripe";
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 
 const CheckOut = () => {
-  const product = [
-    {
-      price: 10,
-      name: "Abc",
-      quantity: 1,
-    },
-  ];
+  const cartItems = useSelector((state: RootState) => state.cartItems);
   const handleCheckOut = async () => {
     const stripe = await getStripePromise();
     const res = await fetch("/api/stripe-session", {
       method: "POST",
-      body: JSON.stringify(product),
+      body: JSON.stringify(cartItems),
     });
     const data = await res.json();
     if (data.session) {
