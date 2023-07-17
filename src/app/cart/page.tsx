@@ -7,7 +7,6 @@ import CheckOut from "@/components/checkout/CheckOut";
 
 export default function Page() {
   const cartItems = useSelector((state: RootState) => state.cartItems);
-  console.log("cartItems :>> ", cartItems);
   const totalQuantity = cartItems.reduce(
     (total, item) => total + item.quantity,
     0
