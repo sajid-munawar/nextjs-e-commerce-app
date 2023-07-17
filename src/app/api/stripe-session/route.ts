@@ -1,3 +1,4 @@
+import { ICartProduct } from "@/interface/interface";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -23,14 +24,14 @@ export const POST = async (request: NextRequest) => {
         invoice_creation: {
           enabled: true,
         },
-        line_items: body.map((item: any) => {
+        line_items: body.map((item: ICartProduct) => {
           return {
             price_data: {
               currency: "usd",
               product_data: {
-                name: item.name,
+                name: item.title,
               },
-              unit_amount: item.price * 100,
+              unit_amount: (+item.price / item.quantity) * 100,
             },
             quantity: item.quantity,
             adjustable_quantity: {
@@ -44,7 +45,7 @@ export const POST = async (request: NextRequest) => {
           enabled: true,
         },
         success_url: `${request.headers.get("origin")}/success`,
-        cancel_url: `${request.headers.get("origin")}/?canceled=true`,
+        cancel_url: `${request.headers.get("origin")}/`,
       });
       return NextResponse.json({ session });
     } else {
