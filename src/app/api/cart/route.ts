@@ -85,7 +85,6 @@ export const POST = async (request: NextRequest) => {
 
 export const DELETE = async (request: NextRequest) => {
   const req = await request.json();
-  console.log('reqqwert',req)
   const user_id = cookies().get("user_id")?.value;
   // try {
   //   const res = await db
