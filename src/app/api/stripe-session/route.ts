@@ -52,7 +52,6 @@ export const POST = async (request: NextRequest) => {
       return NextResponse.json({ message: "No Data Found" });
     }
   } catch (err: any) {
-    console.log(err);
     return NextResponse.json(err.message);
   }
 };
