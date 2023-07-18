@@ -3,6 +3,7 @@ import MobilePopUp from "./MobilePopUp";
 import Link from "next/link";
 import NavCart from "./NavCart";
 import { CiSearch } from "react-icons/ci";
+import { ThemeToggle } from "../theme-toggle";
 
 export default function Nav() {
   return (
@@ -48,6 +49,7 @@ export default function Nav() {
           </div>
           {/* Cart button */}
           <NavCart />
+          <ThemeToggle />
         </div>
         {/* Mobile view */}
         <MobilePopUp />
