@@ -2,46 +2,29 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import { Pagination } from "swiper";
-import { Pagination } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { urlForImage } from "../../../sanity/lib/image";
 import { IProductsDetail } from "@/interface/interface";
-// import { getProductData } from "@/interface/fetchFunction";
-// import { useState, useEffect } from "react";
 
 export default async function Products({
   productsData,
 }: {
   productsData: IProductsDetail[];
 }) {
-  // const [data, setData] = useState<any>(null);
-  // const getData = async () => {
-  //   const imageData: IProductsDetail[] = await getProductData(
-  //     `*[_type == "products"]{image,title,price}`
-  //   );
-  //   // console.log("imageData :>> ", imageData);
-  //   // await setData(imageData);
-  //   return imageData;
-  // };
-  // useEffect(() => {
-  //   const imageData = getData();
-  //   setData(imageData);
-  // }, []);
   const responsive = {
-    // when window width is >= 640px
-    640: {
-      width: 640,
+    320: {
       slidesPerView: 1,
+      spaceBetween: 20,
     },
     768: {
-      width: 800,
       slidesPerView: 2,
+      spaceBetween: 30,
     },
     1080: {
-      width: 1080,
       slidesPerView: 3,
+      spaceBetween: 40,
     },
   };
 
@@ -59,24 +42,27 @@ export default async function Products({
       {/* Bottom Items */}
       <Swiper
         spaceBetween={80}
-        slidesPerView={3}
         loop={true}
         pagination={{
           clickable: true,
         }}
-        modules={[Pagination]}
+        autoplay={{
+          delay: 1000,
+          pauseOnMouseEnter: true,
+        }}
         className="mySwiper"
         breakpoints={responsive}
+        modules={[Pagination, Autoplay]}
       >
         {productsData &&
           productsData.map((items: any) => (
             <SwiperSlide
-              className=" text-center lg:pl-[18px]"
+              className="pb-14 text-center md:mx-2 lg:mx-4 lg:pl-[18px] 2xl:mx-6"
               key={items.title}
             >
               <div className="lg:2-[400px] inline-block  h-[320px] w-[300px] cursor-pointer pt-8 duration-500  ease-in-out hover:scale-110 lg:w-[380px] lg:pb-14">
                 <Link
-                  href="#"
+                  href={`/products/${items.title}`}
                   onClick={(e) => e.preventDefault()}
                   id="myLink"
                   className="drag-none"
@@ -87,7 +73,7 @@ export default async function Products({
                     width={380}
                     height={400}
                   />
-                  <div className="mt-2 text-center text-lg font-semibold tracking-wide text-textBlack lg:text-left">
+                  <div className="my-2 text-center text-lg font-semibold tracking-wide text-textBlack lg:text-left">
                     <div>{items.title}</div>
                     <div className="">{items.price}</div>
                   </div>
