@@ -11,10 +11,21 @@ export async function POST(req: any, res: any) {
     const sig = req.headers.get("stripe-signature") as string;
     const event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
     if ("checkout.session.completed" === event.type) {
-      const session = event.data.object;
+      const session: any = event.data.object;
       console.log("session :>> ", session);
       //Once you'll get data you can use it according to your
       //reqirement for making update in DB
+      const {
+        id,
+        amount_subtotal,
+        amount_total,
+        created,
+        currency,
+        customer,
+        status,
+        customer_details: { name, email, phone },
+        shipping_cost: { amount_total: shipping_amount_total },
+      } = session;
     } else {
       res.setHeader("Allow", "POST");
       // res.status(405).end("Method Not Allowed");
