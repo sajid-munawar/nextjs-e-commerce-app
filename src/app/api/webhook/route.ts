@@ -16,7 +16,7 @@ export async function POST(req: any, res: any) {
     const event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
     if ("checkout.session.completed" === event.type) {
       const session: any = event.data.object;
-      console.log("session :>> ", session);
+      // console.log("session :>> ", session);
       const {
         id,
         amount_subtotal,
@@ -48,7 +48,7 @@ export async function POST(req: any, res: any) {
         })
         .returning();
 
-      console.log("data inserted into table", res);
+      // console.log("data inserted into table", res);
 
       return NextResponse.json({ res });
     } else {
